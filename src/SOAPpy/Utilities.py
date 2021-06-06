@@ -39,7 +39,7 @@ from .version import __version__
 import re
 import string
 import sys
-from SOAPpy.Types import *
+from .Types import *
 
 # SOAPpy-py3 modules
 from .Errors import *

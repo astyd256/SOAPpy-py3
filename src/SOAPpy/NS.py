@@ -40,7 +40,7 @@
 ################################################################################
 
 """
-from SOAPpy.Errors import Error
+from .Errors import Error
 
 ident = '$Id: NS.py 1468 2008-05-24 01:55:33Z warnes $'
 from .version import __version__

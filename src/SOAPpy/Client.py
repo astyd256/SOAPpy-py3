@@ -45,10 +45,11 @@
 ident = '$Id: Client.py 1496 2010-03-04 23:46:17Z pooryorick $'
 
 from .version import __version__
+from io import StringIO
 
 #import xml.sax
 import urllib.request, urllib.parse, urllib.error
-from SOAPpy.Types import *
+from .Types import *
 import re
 import base64
 import socket, http.client
@@ -61,7 +62,7 @@ from .Config      import Config
 from .Parser      import parseSOAPRPC
 from .SOAPBuilder import buildSOAP
 from .Utilities   import *
-from SOAPpy.Types       import faultType, simplify
+from .Types       import faultType, simplify
 
 import collections
 
@@ -152,7 +153,7 @@ class HTTP:
             return -1, e.line, None
 
         self.headers = response.msg
-        self.file = response.fp
+        self.file = StringIO(response.fp.read().decode('utf-8'))
         return response.status, response.reason, response.msg
 
     def close(self):

@@ -57,7 +57,7 @@ import urllib.request, urllib.parse, urllib.error
 import copy
 import re
 import time
-from SOAPpy.Types import *
+from .Types import *
 
 # SOAPpy-py3 modules
 from .Errors    import *

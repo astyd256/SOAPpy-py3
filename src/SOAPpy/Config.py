@@ -37,7 +37,7 @@ ident = '$Id: Config.py 1298 2006-11-07 00:54:15Z sanxiyn $'
 from .version import __version__
 
 import socket
-from SOAPpy.Types import *
+from .Types import *
 
 from .NS import NS
 

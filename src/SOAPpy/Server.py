@@ -49,14 +49,14 @@ from .version import __version__
 import socket
 import sys
 import socketserver
-from SOAPpy.Types import *
+from .Types import *
 import http.server
 import _thread
 
 # SOAPpy-py3 modules
 from .Parser      import parseSOAPRPC
 from .Config      import Config
-from SOAPpy.Types       import faultType, voidType, simplify
+from .Types       import faultType, voidType, simplify
 from .NS          import NS
 from .SOAPBuilder import buildSOAP
 from .Utilities   import debugHeader, debugFooter

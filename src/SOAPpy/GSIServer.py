@@ -53,7 +53,7 @@ import re
 import socket
 import sys
 import socketserver
-from SOAPpy.Types import *
+from .Types import *
 import http.server
 
 # SOAPpy-py3 modules

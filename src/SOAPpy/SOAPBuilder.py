@@ -42,7 +42,7 @@ from wstools.XMLname import toXMLname, fromXMLname
 # SOAPpy-py3 modules
 from .Config import Config
 from .NS     import NS
-from SOAPpy.Types  import *
+from .Types  import *
 
 # Test whether this Python version has Types.BooleanType
 # If it doesn't have it, then False and True are serialized as integers
