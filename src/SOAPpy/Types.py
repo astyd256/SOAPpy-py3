@@ -1451,6 +1451,8 @@ class arrayType(collections.UserList, compoundType):
     def __getitem__(self, item):
         try:
             return self.data[int(item)]
+        except TypeError:
+            return self.data[item]
         except ValueError:
             return getattr(self, item)
 

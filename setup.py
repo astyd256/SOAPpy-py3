@@ -26,7 +26,7 @@ setup(
     package_dir={'': 'src'},
     include_package_data=True,
     install_requires=[
-        'wstools-py3',
+        #'wstools-py3',
         'defusedxml',
     ],
     classifiers=[
