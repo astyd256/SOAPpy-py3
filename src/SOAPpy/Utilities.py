@@ -48,7 +48,7 @@ from .Errors import *
 # Utility infielders
 ################################################################################
 def collapseWhiteSpace(s):
-    return re.sub('\s+', ' ', s).strip()
+    return re.sub(r'\s+', ' ', s).strip()
 
 def decodeHexString(data):
     conv = {
@@ -115,9 +115,7 @@ def encodeHexString(data):
     return h
 
 def leapMonth(year, month):
-    return month == 2 and \
-        year % 4 == 0 and \
-        (year % 100 != 0 or year % 400 == 0)
+    return month == 2 and year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
 
 def cleanDate(d, first = 0):
     ranges = (None, (1, 12), (1, 31), (0, 23), (0, 59), (0, 61))
@@ -152,8 +150,7 @@ def cleanDate(d, first = 0):
         if i == first and s < 0:
             continue
 
-        if ranges[i] != None and \
-            (s < ranges[i][0] or ranges[i][1] < s):
+        if ranges[i] != None and (s < ranges[i][0] or ranges[i][1] < s):
             raise ValueError("%s out of range" % names[i])
 
     if first < 6 and d[5] >= 61:

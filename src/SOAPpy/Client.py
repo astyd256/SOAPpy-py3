@@ -254,7 +254,7 @@ class HTTPTransport:
         SOAP message."""
 
         if type(original_namespace) == StringType:
-            pattern="xmlns:\w+=['\"](" + original_namespace + "[^'\"]*)['\"]"
+            pattern = r"xmlns:\w+=['\"](" + original_namespace + r"[^'\"]*)['\"]"
             match = re.search(pattern, data)
             if match:
                 return match.group(1)
@@ -408,8 +408,7 @@ class HTTPTransport:
         def startswith(string, val):
             return string[0:len(val)] == val
         
-        if code == 500 and not \
-               ( startswith(content_type, "text/xml") and message_len > 0 ):
+        if code == 500 and not ( startswith(content_type, "text/xml") and message_len > 0 ):
             raise HTTPError(code, msg)
 
         if config.dumpSOAPIn:
@@ -473,8 +472,7 @@ class SOAPProxy:
         self.timeout        = timeout
 
         # GSI Additions
-        if hasattr(config, "channel_mode") and \
-               hasattr(config, "delegation_mode"):
+        if hasattr(config, "channel_mode") and hasattr(config, "delegation_mode"):
             self.channel_mode = config.channel_mode
             self.delegation_mode = config.delegation_mode
         #end GSI Additions
@@ -564,8 +562,7 @@ class SOAPProxy:
         p, attrs = parseSOAPRPC(r, attrs = 1)
 
         try:
-            throw_struct = self.throw_faults and \
-                isinstance (p, faultType)
+            throw_struct = self.throw_faults and isinstance (p, faultType)
         except:
             throw_struct = 0
 

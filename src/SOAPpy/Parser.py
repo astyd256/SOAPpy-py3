@@ -119,8 +119,7 @@ class SOAPParser(xml.sax.handler.ContentHandler):
 
         if self._next == "E":
             if name[1] != 'Envelope':
-                raise Error("expected `SOAP-ENV:Envelope', " \
-                    "got `%s'" % toStr( name ))
+                raise Error("expected `SOAP-ENV:Envelope', got `%s'" % toStr( name ))
             if name[0] != NS.ENV:
                 raise faultType("%s:VersionMismatch" % NS.ENV_T,
                     "Don't understand version `%s' Envelope" % name[0])
@@ -130,17 +129,14 @@ class SOAPParser(xml.sax.handler.ContentHandler):
             if name[0] == NS.ENV and name[1] in ("Header", "Body"):
                 self._next = None
             else:
-                raise Error("expected `SOAP-ENV:Header' or `SOAP-ENV:Body', " \
-                    "got `%s'" % toStr( name ))
+                raise Error("expected `SOAP-ENV:Header' or `SOAP-ENV:Body', got `%s'" % toStr( name ))
         elif self._next == "B":
             if name == (NS.ENV, "Body"):
                 self._next = None
             else:
-                raise Error("expected `SOAP-ENV:Body', " \
-                      "got `%s'" % toStr( name ))
+                raise Error("expected `SOAP-ENV:Body', got `%s'" % toStr( name ))
         elif self._next == "":
-            raise Error("expected nothing, " \
-                  "got `%s'" % toStr( name ))
+            raise Error("expected nothing, got `%s'" % toStr( name ))
 
 
         if len(self._stack) == 2:
@@ -228,8 +224,7 @@ class SOAPParser(xml.sax.handler.ContentHandler):
             if href:
                 if href[0] != '#':
                     raise Error("Non-local hrefs are not yet suppported.")
-                if self._data != None and \
-                   string.join(self._data, "").strip() != '':
+                if self._data != None and string.join(self._data, "").strip() != '':
                     raise Error("hrefs can't have data")
 
                 href = href[1:]
@@ -297,8 +292,7 @@ class SOAPParser(xml.sax.handler.ContentHandler):
                     null = 0
 
                 if null:
-                    if len(cur) or \
-                        (self._data != None and ''.join(self._data).strip() != ''):
+                    if len(cur) or (self._data != None and ''.join(self._data).strip() != ''):
                         raise Error("nils can't have data")
 
                     data = None
@@ -356,8 +350,7 @@ class SOAPParser(xml.sax.handler.ContentHandler):
 
             #print "No rules, using kind or cur.kind..."
 
-            if (kind == None and cur.kind != None) or \
-                (kind == (NS.ENC, 'Array')):
+            if (kind == None and cur.kind != None) or (kind == (NS.ENC, 'Array')):
                 kind = cur.kind
 
                 if kind == None:
@@ -374,9 +367,7 @@ class SOAPParser(xml.sax.handler.ContentHandler):
 
                 break
 
-            if len(self._stack) == 3 and kind == None and \
-                len(cur) == 0 and \
-                (self._data is None or "".join(self._data).strip() == ''):
+            if len(self._stack) == 3 and kind == None and len(cur) == 0 and (self._data is None or "".join(self._data).strip() == ''):
                 data = structType(name=(ns, name), attrs=attrs)
                 break
 
@@ -479,10 +470,11 @@ class SOAPParser(xml.sax.handler.ContentHandler):
         if self._data is not None:
             self._data.append(c)
 
-    arrayre = '^(?:(?P<ns>[^:]*):)?' \
-        '(?P<type>[^[]+)' \
-        '(?:\[(?P<rank>,*)\])?' \
-        '(?:\[(?P<asize>\d+(?:,\d+)*)?\])$'
+    arrayre = (
+        r'^(?:(?P<ns>[^:]*):)?'
+        r'(?P<type>[^[]+)'
+        r'(?:\[(?P<rank>,*)\])?'
+        r'(?:\[(?P<asize>\d+(?:,\d+)*)?\])$')
 
     def startArray(self, name, kind, attrs, elemsname):
         if isinstance(self.arrayre, str):
@@ -529,18 +521,17 @@ class SOAPParser(xml.sax.handler.ContentHandler):
     # Conversion
 
     class DATETIMECONSTS:
-        SIGNre = '(?P<sign>-?)'
-        CENTURYre = '(?P<century>\d{2,})'
-        YEARre = '(?P<year>\d{2})'
-        MONTHre = '(?P<month>\d{2})'
-        DAYre = '(?P<day>\d{2})'
-        HOURre = '(?P<hour>\d{2})'
-        MINUTEre = '(?P<minute>\d{2})'
-        SECONDre = '(?P<second>\d{2}(?:\.\d*)?)'
-        TIMEZONEre = '(?P<zulu>Z)|(?P<tzsign>[-+])(?P<tzhour>\d{2}):' \
-            '(?P<tzminute>\d{2})'
-        BOSre = '^\s*'
-        EOSre = '\s*$'
+        SIGNre = r'(?P<sign>-?)'
+        CENTURYre = r'(?P<century>\d{2,})'
+        YEARre = r'(?P<year>\d{2})'
+        MONTHre = r'(?P<month>\d{2})'
+        DAYre = r'(?P<day>\d{2})'
+        HOURre = r'(?P<hour>\d{2})'
+        MINUTEre = r'(?P<minute>\d{2})'
+        SECONDre = r'(?P<second>\d{2}(?:\.\d*)?)'
+        TIMEZONEre = (r'(?P<zulu>Z)|(?P<tzsign>[-+])(?P<tzhour>\d{2}):' r'(?P<tzminute>\d{2})')
+        BOSre = r'^\s*'
+        EOSre = r'\s*$'
 
         __allres = {'sign': SIGNre, 'century': CENTURYre, 'year': YEARre,
             'month': MONTHre, 'day': DAYre, 'hour': HOURre,
@@ -568,20 +559,21 @@ class SOAPParser(xml.sax.handler.ContentHandler):
         gMonth = '%(b)s--%(month)s--(%(timezone)s)?%(e)s' % __allres
         month = gMonth
 
-        recurringInstant = '%(b)s%(sign)s(%(century)s|-)(%(year)s|-)-' \
-            '(%(month)s|-)-(%(day)s|-)T' \
-            '(%(hour)s|-):(%(minute)s|-):(%(second)s|-)' \
-            '(%(timezone)s)?%(e)s' % __allres
+        recurringInstant = (
+            r'%(b)s%(sign)s(%(century)s|-)(%(year)s|-)-'
+            r'(%(month)s|-)-(%(day)s|-)T'
+            r'(%(hour)s|-):(%(minute)s|-):(%(second)s|-)'
+            r'(%(timezone)s)?%(e)s') % __allres
 
-        duration = '%(b)s%(sign)sP' \
-            '((?P<year>\d+)Y)?' \
-            '((?P<month>\d+)M)?' \
-            '((?P<day>\d+)D)?' \
-            '((?P<sep>T)' \
-            '((?P<hour>\d+)H)?' \
-            '((?P<minute>\d+)M)?' \
-            '((?P<second>\d*(?:\.\d*)?)S)?)?%(e)s' % \
-            __allres
+        duration = (
+            r'%(b)s%(sign)sP'
+            r'((?P<year>\d+)Y)?'
+            r'((?P<month>\d+)M)?'
+            r'((?P<day>\d+)D)?'
+            r'((?P<sep>T)'
+            r'((?P<hour>\d+)H)?'
+            r'((?P<minute>\d+)M)?'
+            r'((?P<second>\d*(?:\.\d*)?)S)?)?%(e)s') % __allres
 
         timeDuration = duration
 
@@ -639,9 +631,11 @@ class SOAPParser(xml.sax.handler.ContentHandler):
                 # going back a month, so we need to know if the previous
                 # month is February, so we test if this month is March.
 
-                leap = minfield == 0 and date[1] == 3 and \
-                    date[0] % 4 == 0 and \
+                leap = (
+                    minfield == 0 and date[1] == 3 and
+                    date[0] % 4 == 0 and
                     (date[0] % 100 != 0 or date[0] % 400 == 0)
+                )
 
                 if 0 < date[2] <= months[date[1]] + leap: break
 
@@ -681,8 +675,8 @@ class SOAPParser(xml.sax.handler.ContentHandler):
             r = []
 
             if kind in ('duration', 'timeDuration'):
-                if d['sep'] != None and d['hour'] == None and \
-                    d['minute'] == None and d['second'] == None:
+                if (d['sep'] != None and d['hour'] == None and
+                    d['minute'] == None and d['second'] == None):
                     raise Exception
 
                 f = f[1:]
@@ -802,8 +796,7 @@ class SOAPParser(xml.sax.handler.ContentHandler):
         except Exception as e:
             raise Error("invalid %s value `%s' - %s" % (kind, value, e))
 
-    intlimits = \
-    {
+    intlimits = {
         'nonPositiveInteger':   (0, None, 0),
         'non-positive-integer': (0, None, 0),
         'negativeInteger':      (0, None, -1),
@@ -822,8 +815,7 @@ class SOAPParser(xml.sax.handler.ContentHandler):
         'unsignedShort':        (0, 0, 65535),
         'unsignedByte':         (0, 0, 255),
     }
-    floatlimits = \
-    {
+    floatlimits = {
         'float':        (7.0064923216240861E-46, -3.4028234663852886E+38,
                          3.4028234663852886E+38),
         'double':       (2.4703282292062327E-324, -1.7976931348623158E+308,
