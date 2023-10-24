@@ -1303,7 +1303,7 @@ class compoundType(anyType):
         return len(self._keyord)
 
     def __bool__(self):
-        return 1
+        return True
 
     def _keys(self):
         return [x for x in list(self.__dict__.keys()) if x[0] != '_']
@@ -1460,7 +1460,7 @@ class arrayType(collections.UserList, compoundType):
         return len(self.data)
 
     def __bool__(self):
-        return 1
+        return True
 
     def __str__(self):
         return anyType.__str__(self) + ": " + str(self._aslist())

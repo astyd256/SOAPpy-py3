@@ -217,7 +217,9 @@ class SOAPRequestHandler(http.server.BaseHTTPRequestHandler):
                 debugFooter(s)
 
             data = self.rfile.read(int(self.headers["Content-length"]))
-
+            if type(data) == bytes:
+                # is it safe assumption? need to parse Content-type header
+                data = data.decode('utf-8')
             if self.server.config.dumpSOAPIn:
                 s = 'Incoming SOAP'
                 debugHeader(s)
@@ -256,7 +258,10 @@ class SOAPRequestHandler(http.server.BaseHTTPRequestHandler):
             if self.server.config.specialArgs:
 
                 for (k,v) in  list(kw.items()):
-
+                    if type(k) == bytes:
+                        k = k.decode()
+                    if type(v) == bytes:
+                        v = v.decode()
                     if k[0]=="v":
                         try:
                             i = int(k[1:])

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SOAPpy-py3"
+version = "0.52.29"
+maintainers = [{name = "Synerty", email = "contact@synerty.com"}]
+description = "SOAP Services for Python"
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Other Environment",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Topic :: Internet :: WWW/HTTP",
+]
+urls = {Homepage = "https://github.com/Synerty/SOAPpy-py3"}
+dependencies = ["wstools-py3", "defusedxml"]
+
+readme = "REAME.txt"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+provides = ["SOAPpy"]
+
+[tool.setuptools.packages]
+find = {namespaces = false}

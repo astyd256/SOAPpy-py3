@@ -4,15 +4,13 @@ from .Config    import Config
 from .Types     import *
 from .NS        import NS
 from .Utilities import *
+import six
 
 import string
 import xml.sax
 from wstools.XMLname import fromXMLname
 import collections
-try:
-    from io import StringIO
-except ImportError:
-    from io import StringIO
+from six import BytesIO
 
 try: from M2Crypto import SSL
 except: pass
@@ -1036,13 +1034,13 @@ class SOAPParser(xml.sax.handler.ContentHandler):
 ################################################################################
 class EmptyEntityResolver(xml.sax.handler.EntityResolver):
     def resolveEntity(self, publicId, systemId):
-        return StringIO("<?xml version='1.0' encoding='UTF-8'?>")
+        return BytesIO("<?xml version='1.0' encoding='UTF-8'?>")
 
 
 def _parseSOAP(xml_str, rules = None, ignore_ext=None,
                forbid_entities=False, forbid_external=True, forbid_dtd=False):
     inpsrc = xml.sax.xmlreader.InputSource()
-    inpsrc.setByteStream(StringIO(xml_str))
+    inpsrc.setByteStream(BytesIO(xml_str))
     if ignore_ext is None:
         ignore_ext = False
 

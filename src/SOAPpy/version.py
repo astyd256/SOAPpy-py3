@@ -1,5 +1,5 @@
 try:
     import pkg_resources
-    __version__ = pkg_resources.get_distribution("SOAPpy-py3").version
+    __version__ = '0.52.29'
 except:
-    __version__="xxx"
+    __version__ = '0.52.29'

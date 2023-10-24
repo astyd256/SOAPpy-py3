@@ -8,7 +8,7 @@ import os
 
 from setuptools import setup, find_packages
 
-package_version = '0.52.25'
+package_version = '0.52.28'
 
 url = "https://github.com/Synerty/SOAPpy-py3"
 long_description = "SOAPpy-py3 provides tools for building SOAP clients and servers.  For more information see " + url
