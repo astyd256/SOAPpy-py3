@@ -14,7 +14,7 @@ url = "https://github.com/Synerty/SOAPpy-py3"
 long_description = "SOAPpy-py3 provides tools for building SOAP clients and servers.  For more information see " + url
 
 setup(
-    name="SOAPpy-py3",
+    name="SOAPpy",
     provides=['SOAPpy'],
     version=package_version,  # Add 0.40.0 for the SOAPpy-py3 port
     description="SOAP Services for Python",
